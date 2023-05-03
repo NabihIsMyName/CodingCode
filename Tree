@@ -1,0 +1,54 @@
+public class TreeNode {
+    private Object value;
+    private TreeNode leftChild;
+    private TreeNode rightChild;
+
+    public TreeNode(Object value) {
+        this.value = value;
+        this.leftChild = null;
+        this.rightChild = null;
+    }
+
+    public void setLeftChild(TreeNode leftChild) {
+        this.leftChild = leftChild;
+    }
+
+    public void setRightChild(TreeNode rightChild) {
+        this.rightChild = rightChild;
+    }
+
+    public void fillChildren() {
+        if (this.leftChild == null) {
+            if (this.value instanceof String) {
+                this.leftChild = new TreeNode(this.toString() + "L");
+            } else if (this.value instanceof Integer) {
+                this.leftChild = new TreeNode(((Integer) this.value) * 2 - 1);
+            }
+            this.leftChild.fillChildren();
+        }
+        if (this.rightChild == null) {
+            if (this.value instanceof String) {
+                this.rightChild = new TreeNode(this.toString() + "R");
+            } else if (this.value instanceof Integer) {
+                this.rightChild = new TreeNode(((Integer) this.value) * 2);
+            }
+            this.rightChild.fillChildren();
+        }
+    }
+
+    public void print() {
+        System.out.print(this.value + " ");
+        if (this.leftChild != null) {
+            this.leftChild.print();
+        }
+        if (this.rightChild != null) {
+            this.rightChild.print();
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(10);
+        root.fillChildren();
+        root.print();
+    }
+}
